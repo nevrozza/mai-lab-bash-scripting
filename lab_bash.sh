@@ -37,6 +37,7 @@ if ! [[ "$TARGET_BLOCKS" =~ ^[0-9]+$ ]]; then
 fi
 
 TOTAL_DELETED_BLOCKS=0
+TOTAL_DELETED_FILES=0
 
 for file in "$DIR"/*; do
 	if [ -f "$file" ]; then
@@ -47,18 +48,18 @@ for file in "$DIR"/*; do
         	echo "Удален файл: $file (Размер: $blocks блоков)"
 
         	TOTAL_DELETED_BLOCKS=$((TOTAL_DELETED_BLOCKS + blocks))
-
+			TOTAL_DELETED_FILES=$((TOTAL_DELETED_FILES + 1))
         	if [ "$TOTAL_DELETED_BLOCKS" -ge "$TARGET_BLOCKS" ]; then
-            	echo "------------------------------------------------"
-				echo "Удалено блоков: $TOTAL_DELETED_BLOCKS (Требовалось: $TARGET_BLOCKS)"
-				echo "На этом всё."
-            	exit 0
+            		echo "------------------------------------------------"
+					echo "Удалено файлов: $TOTAL_DELETED_FILES"
+					echo "Удалено блоков: $TOTAL_DELETED_BLOCKS (Требовалось: $TARGET_BLOCKS)"
+					echo "На этом всё."
+            		exit 0
        		fi
     	fi
 done
 
 
 echo "------------------------------------------------"
-echo "В каталоге закончились файлы"
+echo "В каталоге закончились файлы (удалено: $TOTAL_DELETED_FILES)"
 echo "Всего удалено блоков: $TOTAL_DELETED_BLOCKS из требуемых $TARGET_BLOCKS"
-
