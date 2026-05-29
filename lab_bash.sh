@@ -40,7 +40,7 @@ TOTAL_DELETED_BLOCKS=0
 
 for file in "$DIR"/*; do
 	if [ -f "$file" ]; then
-		# блоки по 512 байт
+			# блоки по 512 байт
         	blocks=$(stat -c %b "$file")
 
         	rm "$file"
@@ -49,10 +49,10 @@ for file in "$DIR"/*; do
         	TOTAL_DELETED_BLOCKS=$((TOTAL_DELETED_BLOCKS + blocks))
 
         	if [ "$TOTAL_DELETED_BLOCKS" -ge "$TARGET_BLOCKS" ]; then
-            		echo "------------------------------------------------"
-			echo "Удалено блоков: $TOTAL_DELETED_BLOCKS (Требовалось: $TARGET_BLOCKS)"
-			echo "На этом всё."
-            		exit 0
+            	echo "------------------------------------------------"
+				echo "Удалено блоков: $TOTAL_DELETED_BLOCKS (Требовалось: $TARGET_BLOCKS)"
+				echo "На этом всё."
+            	exit 0
        		fi
     	fi
 done
